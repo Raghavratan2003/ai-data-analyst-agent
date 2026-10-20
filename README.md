@@ -1,116 +1,44 @@
 # AI Data Analyst Agent
 
-An AI-powered data analytics application that converts natural-language questions into SQL queries, executes them against a PostgreSQL database, and presents the results through interactive visualizations and AI-generated explanations.
+An AI-powered data analytics application that converts natural-language questions into SQL queries, executes validated queries against PostgreSQL, and presents results through interactive visualizations and AI-generated explanations.
 
-## Overview
+**[🚀 Live Demo](https://ai-data-analyst-agent-dz8zu9kmqdrjpcwa5f74so.streamlit.app/)**
 
-Business users often need SQL knowledge to retrieve insights from relational databases. This project simplifies that process by allowing users to ask analytical questions in plain English.
+## Key Features
 
-**Example question:**
-
-> What are the top 10 products by revenue?
-
-The application generates SQL, validates the query, retrieves the data, and presents the results in a table, chart, and natural-language explanation.
-
-## Features
-
-- **Natural Language to SQL:** Generate PostgreSQL queries from user questions using an OpenAI model.
+- **Natural Language to SQL:** Ask business questions in plain English.
 - **SQL Validation:** Parse and validate generated SQL before execution.
-- **Database Integration:** Query a PostgreSQL e-commerce database.
-- **Data Analysis:** Generate concise explanations from query results.
-- **Interactive Visualizations:** Display charts using Plotly.
-- **Streamlit Interface:** Interact with the system through a simple web application.
-- **Database Safeguards:** Use a read-only database account, query timeouts, and result limits.
-- **Automated Tests:** Test core SQL validation behavior.
-
-## Architecture
-
-```text
-User Question
-     |
-     v
-Streamlit Interface
-     |
-     v
-LLM - SQL Generation
-     |
-     v
-SQL Validation
-     |
-     v
-PostgreSQL Database
-     |
-     v
-Pandas DataFrame
-     |
-     +------------------+
-     |                  |
-     v                  v
-Plotly Visualization  LLM Analysis
-     |                  |
-     +---------+--------+
-               |
-               v
-       Results and Insights
-```
+- **Database Integration:** Query a hosted PostgreSQL database using a read-only application account.
+- **Interactive Analytics:** Display query results in tables and charts.
+- **AI-Generated Insights:** Receive natural-language explanations of query results.
+- **Cloud Deployment:** Deployed using Streamlit Community Cloud and Neon PostgreSQL.
 
 ## Technology Stack
 
-| Component | Technology |
-|---|---|
-| Programming language | Python |
-| User interface | Streamlit |
-| API integration | OpenAI API |
-| Database | PostgreSQL |
-| Data processing | Pandas |
-| Visualization | Plotly |
-| SQL parsing | SQLGlot |
-| Database connectivity | Psycopg2 |
+Python · Streamlit · PostgreSQL · OpenAI API · Pandas · Plotly · SQLGlot · Neon
 
-## Database Schema
+## Dataset
 
-The project uses an e-commerce database with four related tables:
-
-- `customers`: Customer information and location.
-- `products`: Product names, categories, and prices.
-- `orders`: Order dates, customers, and order totals.
-- `order_items`: Products purchased, quantities, and item revenue.
-
-These relationships support analytical queries involving joins, aggregations, date filtering, and rankings.
+The application uses a synthetically generated e-commerce dataset containing customers, products, orders, and order items. It is intended to demonstrate an analytics workflow and does not represent real customer transactions.
 
 ## Example Questions
 
-- What are the top 10 products by revenue?
-- Which product category generated the most revenue?
-- Show monthly revenue for 2025.
-- Which city has the highest number of customers?
-- Compare revenue between 2024 and 2025.
-- What is the total revenue by product category?
+- Which product categories generate the highest revenue?
+- How does monthly revenue change over time?
+- Which cities have the most customers?
+- Which products contribute the most to sales?
 
-## Project Structure
+## Architecture
 
-```text
-ai-data-analyst-agent/
-├── app/
-│   ├── __init__.py
-│   ├── agent.py
-│   ├── database.py
-│   ├── prompts.py
-│   ├── sql_validator.py
-│   └── test_validator.py
-├── data/
-│   └── generate_data.py
-├── frontend/
-│   └── dashboard.py
-├── sql/
-├── .env
-├── .gitignore
-├── pyproject.toml
-├── uv.lock
-└── README.md
-```
+User Question → LLM-Based SQL Generation → SQL Validation → PostgreSQL Execution → Results Table and Visualization → AI-Generated Explanation
 
-The exact files may vary slightly depending on your local setup.
+## Security Notes
+
+- API keys and database credentials are stored in environment variables or Streamlit secrets, not in source control.
+- The deployed application uses a read-only database account.
+- SQL parsing and validation provide an additional safeguard, but do not replace database permissions, query timeouts, and other security controls.
+
+**Note:** The dataset is synthetic, and generated insights depend on the quality of the SQL and the underlying data.
 
 
 ## Application Preview
@@ -187,29 +115,6 @@ Open the local URL displayed in the terminal.
 uv run python app/test_validator.py
 ```
 
-## Security Considerations
-
-- API keys and database credentials are stored in environment variables.
-- SQL queries are parsed and restricted before execution.
-- The application uses a read-only database account.
-- Query execution has a timeout and a result-row limit.
-- SQL validation alone is not a complete security boundary. Further restrictions are needed before exposing the application to untrusted users or sensitive databases.
-
-## Limitations
-
-- Generated SQL can be syntactically valid but analytically incorrect.
-- Chart selection uses heuristics and may not always choose the best visualization.
-- The sample dataset is synthetic and does not represent real business performance.
-- Model usage requires an accessible OpenAI API account and may incur API charges.
-- The application is a portfolio prototype, not a production-grade enterprise analytics platform.
-
-## Future Improvements
-
-- Improve SQL generation using representative question-query examples.
-- Add automated tests for generated SQL and analytical correctness.
-- Improve chart selection based on data types and query intent.
-- Add query history and CSV export.
-- Deploy the application with secure secrets management.
 
 ## Author
 
