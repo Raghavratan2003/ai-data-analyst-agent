@@ -1,4 +1,5 @@
 import os
+import streamlit as st
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -7,9 +8,12 @@ from app.prompts import SQL_SYSTEM_PROMPT, ANALYSIS_SYSTEM_PROMPT
 
 load_dotenv()
 
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
+api_key = (
+    os.getenv("OPENAI_API_KEY")
+    or st.secrets.get("OPENAI_API_KEY")
 )
+
+client = OpenAI(api_key=api_key)
 
 
 def generate_sql(question):
